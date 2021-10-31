@@ -1,14 +1,24 @@
-class AnalyzingProxy:
-    def handle_DATA(self, server, session, envelope) -> str:
+import logging
+
+from ..handler import Handler
+
+logger = logging.getLogger(__name__)
+
+
+class AnalyzingProxyHandler(Handler):
+    async def handle_DATA(self, server, session, envelope) -> str:
+        logger.debug(f'Data received in proxy')
+        
         return '250 OK'
-    
+
     def _send_to_receiver(self) -> None:
         # TODO pass to receiver
         pass
-    
+
     def _send_to_quarantine(self) -> None:
         # TODO pass to quarantine
         pass
+
 
 # NOTE build-in simple proxy handler
 # class Proxy:

@@ -1,1 +1,1 @@
-from .proxy import EmailProxy
+from .handler import AnalyzingProxyHandler
