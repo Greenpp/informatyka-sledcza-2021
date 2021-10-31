@@ -1,0 +1,8 @@
+[
+  {
+    "sender": "anne@example.com",
+    "receiver": ["bart@example.com"],
+    "message": "Just testing",
+    "attachements": []
+  }
+]
