@@ -1,14 +1,13 @@
 # %%
 import logging
 
-from email_proxy.sender.sender import EmailSender
+from email_proxy import EmailProxy
 
 logging.basicConfig(level=logging.DEBUG)
 
 # %%
-s = EmailSender()
+p = EmailProxy()
+
 # %%
-s.load_emails()
-# %%
-s.send_emails()
+p.run()
 # %%

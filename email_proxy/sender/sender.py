@@ -3,7 +3,7 @@ from smtplib import SMTP
 
 from email_proxy.sender.loader import EmailLoader
 
-from .settings import EMAILS_FILE, TARGET_HOST, TARGET_PORT
+from ..settings import EMAILS_FILE, PROXY_HOST, PROXY_PORT
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +17,8 @@ class EmailSender:
         logger.debug(f'Loaded {len(self.emails)} emails')
 
     def send_emails(self):
-        with SMTP(TARGET_HOST, TARGET_PORT) as client:
+        with SMTP(PROXY_HOST, PROXY_PORT) as client:
+            logger.debug(f'Sending emails to {PROXY_HOST}:{PROXY_PORT}')
             for email in self.emails:
                 logger.debug(f'Sending {email}')
                 client.sendmail(
