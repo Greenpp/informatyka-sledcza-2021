@@ -2,30 +2,34 @@
 
 ## Email proxy, skanujące pod kątem złośliwych wiadomości
 
+## Installation
+```
+poetry install
+```
 ## How to run
 
 To start proxy
 
 ```
-python run_proxy.py
+poetry run python run_proxy.py
 ```
 
 To start receiver
 
 ```
-python run_receiver.py
+poetry run python run_receiver.py
 ```
 
 To start quarantine
 
 ```
-python run_quarantine.py
+poetry run python run_quarantine.py
 ```
 
 To send emails
 
 ```
-python run_sender.py
+poetry run python run_sender.py
 ```
 
 ## Settings
