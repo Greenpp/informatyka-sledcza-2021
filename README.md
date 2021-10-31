@@ -2,8 +2,6 @@
 
 ## Email proxy, skanujące pod kątem złośliwych wiadomości
 
----
-
 ## How to run
 
 To start proxy
