@@ -10,6 +10,8 @@ from .filter import Filter
 
 
 class RBLFilter(Filter):
+    """Checks emails using RBL"""
+
     rbl_list = TINY_CP_RBLS
     url_template = 'https://tinycp.com/ajax/rbl-check?ip={id}&rbl={rbl}'
 
