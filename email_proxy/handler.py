@@ -1,5 +1,7 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 class Handler(ABC):
-    pass
+    @abstractmethod
+    async def handle_DATA(self, server, session, envelope) -> str:
+        pass
