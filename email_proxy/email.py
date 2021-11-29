@@ -14,7 +14,7 @@ class Email:
     receiver: str
     subject: str
     msg: str
-    attachements: list[Path]
+    attachments: list[Path]
 
     def generate_mime(self) -> MIMEMultipart:
         """Generates email MIME object
@@ -34,7 +34,7 @@ class Email:
         body = MIMEText(self.msg, 'plain')
         message.attach(body)
 
-        for att_path in self.attachements:
+        for att_path in self.attachments:
             if not att_path.exists():
                 raise FileNotFoundError(
                     f'Attachment at {att_path.absolute()} not found'
