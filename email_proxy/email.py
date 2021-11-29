@@ -8,6 +8,8 @@ from pathlib import Path
 
 @dataclass
 class Email:
+    """Email representation"""
+
     sender: str
     receiver: str
     subject: str
@@ -15,6 +17,14 @@ class Email:
     attachements: list[Path]
 
     def generate_mime(self) -> MIMEMultipart:
+        """Generates email MIME object
+
+        Raises:
+            FileNotFoundError: If attachment file does not exist
+
+        Returns:
+            MIMEMultipart: MIME object
+        """
         message = MIMEMultipart()
 
         message['From'] = self.sender

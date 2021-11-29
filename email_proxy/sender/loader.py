@@ -8,7 +8,20 @@ logger = logging.getLogger(__name__)
 
 
 class EmailLoader:
+    """Email loader
+
+    Loads emails form json file
+    """
+
     def __init__(self, emails_file: str) -> None:
+        """Creates a new email loader
+
+        Args:
+            emails_file (str): Path to the emails json file
+
+        Raises:
+            FileNotFoundError: If emails file does not exist
+        """
         self.email_file_path = Path(emails_file)
 
         if self.email_file_path.exists():
@@ -19,6 +32,11 @@ class EmailLoader:
             )
 
     def load_emails(self) -> list[Email]:
+        """Loads emails from file to list of Email objects
+
+        Returns:
+            list[Email]: List of Email objects
+        """
         with open(self.email_file_path, 'rb') as f:
             data = json.load(f)
 
