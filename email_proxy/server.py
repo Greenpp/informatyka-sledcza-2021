@@ -15,10 +15,10 @@ class SMTPServer:
         self._port = port
 
         self._loop = asyncio.get_event_loop()
-        logger.debug('Created event loop')
+        logger.info('Created event loop')
 
     def run(self) -> None:
-        logger.debug('Starting server')
+        logger.info('Starting server')
         self._loop.create_task(self._create_controller())
         self._loop.run_forever()
 

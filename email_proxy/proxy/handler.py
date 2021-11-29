@@ -14,11 +14,11 @@ logger = logging.getLogger(__name__)
 
 class AnalyzingProxyHandler(Handler):
     async def handle_DATA(self, server, session, envelope) -> str:
-        logger.debug(f'Data received in proxy')
+        logger.info(f'Data received in proxy')
 
-        logger.debug('Sending email to receiver')
+        logger.info('Sending email to receiver')
         self._send_to_receiver(envelope)
-        logger.debug('Sending email to quarantine')
+        logger.info('Sending email to quarantine')
         self._send_to_quarantine(envelope)
 
         return '250 OK'

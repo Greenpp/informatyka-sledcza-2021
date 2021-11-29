@@ -14,13 +14,13 @@ class EmailSender:
 
     def load_emails(self) -> None:
         self.emails = self.loader.load_emails()
-        logger.debug(f'Loaded {len(self.emails)} emails')
+        logger.info(f'Loaded {len(self.emails)} emails')
 
     def send_emails(self):
         with SMTP(PROXY_HOST, PROXY_PORT) as client:
-            logger.debug(f'Sending emails to {PROXY_HOST}:{PROXY_PORT}')
+            logger.info(f'Sending emails to {PROXY_HOST}:{PROXY_PORT}')
             for email in self.emails:
-                logger.debug(f'Sending {email}')
+                logger.info(f'Sending {email}')
                 client.sendmail(
                     from_addr=email.sender,
                     to_addrs=email.receiver,
