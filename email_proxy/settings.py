@@ -10,6 +10,9 @@ TARGET_PORT = 8026
 QUARANTINE_HOST = 'localhost'
 QUARANTINE_PORT = 8027
 
+VT_JOIN_DELAY = 10
+VT_JOIN_RETRIES = int(2 * 60 / VT_JOIN_DELAY)
+
 TINY_CP_RBLS = [
     'b.barracudacentral.org',
     'cbl.abuseat.org',

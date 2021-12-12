@@ -15,9 +15,6 @@ class RBLFilter(Filter):
     rbl_list = TINY_CP_RBLS
     url_template = 'https://tinycp.com/ajax/rbl-check?ip={id}&rbl={rbl}'
 
-    def __init__(self) -> None:
-        self.logger = logging.getLogger(__name__)
-
     def is_spam_or_dangerous(self, email: Email) -> bool:
         with ThreadPoolExecutor() as e:
             results = list(

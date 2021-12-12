@@ -8,6 +8,8 @@ authors = ["Jakub Ciszek <jakub@ratingcaptain.com>"]
 python = "^3.9"
 aiosmtpd = "^1.4.2"
 requests = "^2.26.0"
+python-dotenv = "^0.19.2"
+vt-py = "^0.11.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
