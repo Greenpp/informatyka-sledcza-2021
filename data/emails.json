@@ -4,6 +4,6 @@
     "receivers": ["bart@example.com"],
     "subject": "Test",
     "message": "Just testing",
-    "attachements": []
+    "attachments": ["test.txt"]
   }
 ]

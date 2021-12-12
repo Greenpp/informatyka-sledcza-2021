@@ -3,6 +3,7 @@ import logging
 from pathlib import Path
 
 from ..email import Email
+from ..settings import ATTACHMENTS_DIR, EMAILS_FILE
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,7 @@ class EmailLoader:
     Loads emails form json file
     """
 
-    def __init__(self, emails_file: str) -> None:
+    def __init__(self, emails_file: str = EMAILS_FILE) -> None:
         """Creates a new email loader
 
         Args:
@@ -48,9 +49,22 @@ class EmailLoader:
                     receiver,
                     email_data['subject'],
                     email_data['message'],
-                    [Path(a) for a in email_data['attachements']],
+                    [self._load_file(a) for a in email_data['attachments']],
                 )
 
                 emails.append(email)
 
         return emails
+
+    def _load_file(self, f_name: str) -> tuple[str, bytes]:
+        file_path = Path(ATTACHMENTS_DIR) / f_name
+
+        if not file_path.exists():
+            raise FileNotFoundError(
+                f'Attachment file not found at {file_path.absolute()}'
+            )
+
+        with open(file_path, 'rb') as f:
+            content = f.read()
+
+        return f_name, content
