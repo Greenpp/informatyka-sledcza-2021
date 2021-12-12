@@ -1,5 +1,6 @@
 EMAILS_FILE = 'data/emails.json'
 ATTACHMENTS_DIR = 'data/attachments'
+TRIGGER_WORDS_FILE = 'data/trigger_words.txt'
 
 PROXY_HOST = 'localhost'
 PROXY_PORT = 8025

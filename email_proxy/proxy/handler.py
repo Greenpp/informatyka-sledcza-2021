@@ -14,6 +14,7 @@ from ..settings import (
 from .filters.filter import Filter
 from .filters.rbl import RBLFilter
 from .filters.virus_total import VirusTotalFilter
+from .filters.keywords import KeywordsFilter
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ class AnalyzingProxyHandler(Handler):
         # TODO uncomment for production
         # RBLFilter(),
         # VirusTotalFilter(),
+        # KeywordsFilter()
     ]
 
     async def handle_DATA(self, server, session, envelope) -> str:
