@@ -10,8 +10,8 @@ class KeywordsFilter(Filter):
 
     def is_spam_or_dangerous(self, email: Email) -> bool:
         
-        message = Email.msg.lower()
-        subject = Email.subject.lower()
+        message = Email.msg.lower().split(' ')
+        subject = Email.subject.lower().split(' ')
         words_list = self._read_from_file(self.file_path)
 
         result = any(map(lambda x: x in message or x in subject, words_list))
