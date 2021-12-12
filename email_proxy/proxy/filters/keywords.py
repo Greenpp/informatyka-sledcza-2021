@@ -14,7 +14,7 @@ class KeywordsFilter(Filter):
         subject = Email.subject.lower()
         words_list = self._read_from_file(self.file_path)
 
-        result = any(map(lambda x: x.lower() in message or subject, words_list))
+        result = any(map(lambda x: x in message or x in subject, words_list))
 
         return result
 
@@ -22,5 +22,7 @@ class KeywordsFilter(Filter):
 
         with open(path, 'r') as f:
             trigger_words = f.read().split(',')
+        
+        trigger_words = [word.lower() for word in trigger_words]
 
         return trigger_words
