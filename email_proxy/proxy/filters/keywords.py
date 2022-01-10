@@ -9,6 +9,14 @@ class KeywordsFilter(Filter):
     file_path = TRIGGER_WORDS_FILE
 
     def is_spam_or_dangerous(self, email: Email) -> bool:
+        """Checks if any trigger word is in email subject or message
+
+        Args:
+            email (Email): Email object
+
+        Returns:
+            bool: If a word was found
+        """
         message = (
             email.msg.lower()
             .replace('.', '')
@@ -30,7 +38,7 @@ class KeywordsFilter(Filter):
         return result
 
     def _read_from_file(self, path: str) -> list:
-
+        "Reads a trigger word list from file"
         with open(path, 'r') as f:
             trigger_words = f.read().split(',')
 
