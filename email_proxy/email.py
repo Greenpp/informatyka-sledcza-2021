@@ -4,8 +4,12 @@ from email import encoders, message_from_bytes
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from typing import Optional
 
 from aiosmtpd.smtp import Envelope
+
+from .db import Email as DBEmail
+from .db import session_factory
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +23,8 @@ class Email:
     subject: str
     msg: str
     attachments: list[tuple[str, bytes]]
+
+    db_id: Optional[int] = None
 
     def generate_mime(self) -> MIMEMultipart:
         """Generates email MIME object
@@ -79,3 +85,17 @@ class Email:
             msg=body,
             attachments=attachments,
         )
+
+    def save_to_db(self, dangerous: bool) -> None:
+        logger.info(f'Saving to DB')
+        db_email = DBEmail(sender=self.sender, receiver=self.receiver, msg=self.msg, is_dangerous=dangerous)
+
+        session = session_factory()
+        session.add(db_email)
+        session.commit()
+
+        self.db_id = db_email.id
+
+        session.close()
+
+

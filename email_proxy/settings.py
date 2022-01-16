@@ -14,6 +14,10 @@ QUARANTINE_PORT = 8027
 VT_JOIN_DELAY = 10
 VT_JOIN_RETRIES = int(2 * 60 / VT_JOIN_DELAY)
 
+DB_URL = 'sqlite://'
+
+REPORTING_EVERY_N_EMAILS = 5
+
 TINY_CP_RBLS = [
     'b.barracudacentral.org',
     'cbl.abuseat.org',

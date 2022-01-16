@@ -10,6 +10,7 @@ aiosmtpd = "^1.4.2"
 requests = "^2.26.0"
 python-dotenv = "^0.19.2"
 vt-py = "^0.11.0"
+SQLAlchemy = {extras = ["mypy"], version = "^1.4.29"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
