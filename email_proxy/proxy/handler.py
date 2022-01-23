@@ -25,7 +25,7 @@ class AnalyzingProxyHandler(Handler):
     """Handler for proxy server"""
     
     def __init__(self) -> None:
-        """Sets filter list and starts report generation"""
+        """Sets filter list and prepares report directory"""
         
         self._filters: list[Filter] = [
             KeywordsFilter(),
