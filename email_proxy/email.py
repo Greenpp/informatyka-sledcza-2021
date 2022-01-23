@@ -87,8 +87,13 @@ class Email:
         )
 
     def save_to_db(self, dangerous: bool) -> None:
-        logger.info(f'Saving to DB')
-        db_email = DBEmail(sender=self.sender, receiver=self.receiver, msg=self.msg, is_dangerous=dangerous)
+        db_email = DBEmail(
+            sender=self.sender,
+            receiver=self.receiver,
+            subject=self.subject,
+            msg=self.msg,
+            is_dangerous=dangerous,
+        )
 
         session = session_factory()
         session.add(db_email)
@@ -97,5 +102,4 @@ class Email:
         self.db_id = db_email.id
 
         session.close()
-
-
+        logger.info('Message saved to DB')

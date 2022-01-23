@@ -1,16 +1,34 @@
+import logging
+from datetime import datetime
+from pathlib import Path
+
 from sqlalchemy import or_
 
 from ..db import Attachment, Email, session_factory
+from ..settings import REPORT_DIR
+
+logger = logging.getLogger(__name__)
 
 
 class ReportGenerator:
+    def __init__(self) -> None:
+        self._prepare_report_dir()
+
+    def _prepare_report_dir(self):
+        report_dir = Path(REPORT_DIR)
+        report_dir.mkdir(exist_ok=True, parents=True)
+
+        self.report_dir = report_dir
+        logger.info(f'Using reports directory {self.report_dir.absolute()}')
+
     def generate_report(self):
+        logger.info('Generating report')
         session = session_factory()
 
         total_emails = session.query(Email).count()
         dangerous_emails = (
             session.query(Email)
-            .join(Email.attachments)
+            .outerjoin(Attachment)
             .filter(or_(Email.is_dangerous == True, Attachment.is_dangerous == True))
             .distinct(Email.id)
             .count()
@@ -23,12 +41,14 @@ class ReportGenerator:
         )
         safe_attachments = total_attachments - dangerous_attachments
 
-        # TODO change form of the report
-        print(
-            f'Total emails: {total_emails}\nDangerous emails: {dangerous_emails}\nSafe emails: {safe_emails}'
-        )
-        print(
-            f'Total attachments: {total_attachments}\nDangerous attachments: {dangerous_attachments}\nSafe attachments: {safe_attachments}'
-        )
-
         session.close()
+
+        report_file = self.report_dir / f'report-{total_emails}-{datetime.now()}.txt'
+        with open(report_file, 'w') as f:
+            f.write(
+                f'Total emails: {total_emails}\nDangerous emails: {dangerous_emails}\nSafe emails: {safe_emails}'
+            )
+            f.write('\n')
+            f.write(
+                f'Total attachments: {total_attachments}\nDangerous attachments: {dangerous_attachments}\nSafe attachments: {safe_attachments}'
+            )

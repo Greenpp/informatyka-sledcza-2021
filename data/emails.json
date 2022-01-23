@@ -5,5 +5,12 @@
     "subject": "Test",
     "message": "Just testing",
     "attachments": ["test.txt"]
+  },
+  {
+    "sender": "alice@example.com",
+    "receivers": ["bob@example.com"],
+    "subject": "Totally not spam",
+    "message": "This is 100% the best offer for lambo you will ever see. Our #1 product is now 50% off!",
+    "attachments": []
   }
 ]

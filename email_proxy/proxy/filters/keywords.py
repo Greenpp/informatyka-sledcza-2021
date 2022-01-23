@@ -1,6 +1,10 @@
+import logging
+
 from ...email import Email
 from ...settings import TRIGGER_WORDS_FILE
 from .filter import Filter
+
+logger = logging.getLogger(__name__)
 
 
 class KeywordsFilter(Filter):
@@ -17,6 +21,7 @@ class KeywordsFilter(Filter):
         Returns:
             bool: If a word was found
         """
+        logger.info('Running keyword filter')
         message = (
             email.msg.lower()
             .replace('.', '')
@@ -33,9 +38,10 @@ class KeywordsFilter(Filter):
         )
         words_list = self._read_from_file(self.file_path)
 
-        result = sum(map(lambda x: x in message or x in subject, words_list)) >= 3
+        matches = sum(map(lambda x: x in message or x in subject, words_list))
+        logger.info(f'Found {matches} matches')
 
-        return result
+        return matches >= 3
 
     def _read_from_file(self, path: str) -> list:
         "Reads a trigger word list from file"

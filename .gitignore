@@ -139,3 +139,7 @@ cython_debug/
 
 .vscode
 .idea
+
+reports
+storage.db
+tmp.py

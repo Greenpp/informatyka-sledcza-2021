@@ -8,6 +8,8 @@ from ...email import Email
 from ...settings import TINY_CP_RBLS
 from .filter import Filter
 
+logger = logging.getLogger(__name__)
+
 
 class RBLFilter(Filter):
     """Checks emails using RBL"""
@@ -16,6 +18,7 @@ class RBLFilter(Filter):
     url_template = 'https://tinycp.com/ajax/rbl-check?ip={id}&rbl={rbl}'
 
     def is_spam_or_dangerous(self, email: Email) -> bool:
+        logger.info('Running RBL list filter')
         with ThreadPoolExecutor() as e:
             results = list(
                 e.map(
@@ -43,5 +46,8 @@ class RBLFilter(Filter):
         if not res.ok:
             logging.warning(f'Failed to fetch RBL ({rbl})')
             return False
+        dangerous = not res.text == 'false'
+        if dangerous:
+            logger.info(f'Found match: {url}')
 
-        return not res.text == 'false'
+        return dangerous

@@ -41,8 +41,9 @@ class VirusTotalFilter(Filter):
 
         return status.id
 
-    def _is_dangerous_result(self, result: dict) -> bool:
-        return result['malicious'] or result['suspicious']
+    def _is_dangerous_result(self, result) -> bool:
+        verdict = result.last_analysis_stats
+        return verdict['malicious'] or verdict['suspicious']
 
     def _join_results(self, ids: list[str]) -> dict[str, dict]:
         id_status = {id_: False for id_ in ids}
@@ -61,13 +62,14 @@ class VirusTotalFilter(Filter):
         return results
 
     def is_spam_or_dangerous(self, email: Email) -> bool:
+        logger.info('Running VirusTotal filter')
         results = {}
         enqueued = []
         id_to_hash = {}
         for f_name, f_content in email.attachments:
             f_hash = hashlib.sha256(f_content).hexdigest()
 
-            logger.info(f'Checking file {f_name}')
+            logger.info(f'Checking file {f_name} | {f_hash=}')
             existing_status = self._get_existing_scan_result(f_hash)
             if existing_status is not None:
                 logger.info(f'File {f_name} result found')
@@ -91,6 +93,7 @@ class VirusTotalFilter(Filter):
         finall_stats = {
             hash_: self._is_dangerous_result(res) for hash_, res in statuses.items()
         }
+        logger.info(f'Checked {len(finall_stats)} files')
 
         session = session_factory()
         db_email = session.query(DBEmail).filter(DBEmail.id == email.db_id).first()
@@ -101,5 +104,6 @@ class VirusTotalFilter(Filter):
             session.add(db_attachment)
         session.commit()
         session.close()
+        logger.info('Attachments saved to DB')
 
         return any(finall_stats.values())

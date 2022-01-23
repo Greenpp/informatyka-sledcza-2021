@@ -1,5 +1,6 @@
 from sqlalchemy import Column, ForeignKey, create_engine
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
+from sqlalchemy.pool import StaticPool
 from sqlalchemy.types import Boolean, Integer, String, Text
 
 from .settings import DB_URL
