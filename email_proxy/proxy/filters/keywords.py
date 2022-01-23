@@ -33,7 +33,7 @@ class KeywordsFilter(Filter):
         )
         words_list = self._read_from_file(self.file_path)
 
-        result = any(map(lambda x: x in message or x in subject, words_list))
+        result = sum(map(lambda x: x in message or x in subject, words_list)) >= 3
 
         return result
 
