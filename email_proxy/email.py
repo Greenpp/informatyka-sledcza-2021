@@ -59,6 +59,8 @@ class Email:
 
     @classmethod
     def from_envelope(cls, envelope: Envelope) -> 'Email':
+        """Converts Envelope object to Email object"""
+        
         message = message_from_bytes(envelope.original_content)
 
         sender = message['From']
@@ -87,6 +89,8 @@ class Email:
         )
 
     def save_to_db(self, dangerous: bool) -> None:
+        """Appends email to database"""
+        
         db_email = DBEmail(
             sender=self.sender,
             receiver=self.receiver,
