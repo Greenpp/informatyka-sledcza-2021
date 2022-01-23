@@ -7,6 +7,8 @@ logger = logging.getLogger(__name__)
 
 
 class ReceiverHandler(Handler):
+    """Recieving client handler"""
+    
     async def handle_DATA(self, server, session, envelope) -> str:
         email = Email.from_envelope(envelope)
         logger.info(f'Data received in receiver | {email=}')
