@@ -12,9 +12,13 @@ logger = logging.getLogger(__name__)
 
 class ReportGenerator:
     def __init__(self) -> None:
+        """Prepares directory"""
+        
         self._prepare_report_dir()
 
     def _prepare_report_dir(self):
+        """Creates a directory for the report to be saved"""
+        
         report_dir = Path(REPORT_DIR)
         report_dir.mkdir(exist_ok=True, parents=True)
 
@@ -22,6 +26,9 @@ class ReportGenerator:
         logger.info(f'Using reports directory {self.report_dir.absolute()}')
 
     def generate_report(self):
+        """Generates report containing a number of safe and dangerous
+        mail/attachments received by proxy server"""
+        
         logger.info('Generating report')
         session = session_factory()
 
