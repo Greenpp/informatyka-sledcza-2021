@@ -19,6 +19,8 @@ logger = logging.getLogger(__name__)
 
 class VirusTotalFilter(Filter):
     def __init__(self) -> None:
+        """Initializes a client for interacting with VirusTotal"""
+        
         try:
             key = dotenv_values('.env')['VT_KEY']
         except Exception as e:
@@ -27,6 +29,8 @@ class VirusTotalFilter(Filter):
         self.vt_client = vt.Client(key)
 
     def _get_existing_scan_result(self, f_hash: str) -> Optional[bool]:
+        """Gets results from VirusTotal based on file hash"""
+        
         try:
             result = self.vt_client.get_object(f'/files/{f_hash}')
         except vt.APIError as e:
@@ -36,16 +40,22 @@ class VirusTotalFilter(Filter):
         return result
 
     def _enqueue_file_scan(self, file_content: bytes) -> str:
+        """Gets results from VirusTotal based on file content"""
+        
         io_content = io.BytesIO(file_content)
         status = self.vt_client.scan_file(io_content)
 
         return status.id
 
     def _is_dangerous_result(self, result) -> bool:
+        """Checks if verdict was classified as malicious or suspicious"""
+        
         verdict = result.last_analysis_stats
         return verdict['malicious'] or verdict['suspicious']
 
     def _join_results(self, ids: list[str]) -> dict[str, dict]:
+        """Creates dictionary from collected results"""
+        
         id_status = {id_: False for id_ in ids}
 
         results = {}
