@@ -2,8 +2,8 @@
   {
     "sender": "anne@example.com",
     "receivers": ["bart@example.com"],
-    "subject": "Test",
-    "message": "Just testing",
+    "subject": "File",
+    "message": "Just look at this file.",
     "attachments": ["test.txt"]
   },
   {
@@ -11,6 +11,27 @@
     "receivers": ["bob@example.com"],
     "subject": "Totally not spam",
     "message": "This is 100% the best offer for lambo you will ever see. Our #1 product is now 50% off!",
+    "attachments": []
+  },
+  {
+    "sender": "fill@gmail.com",
+    "receivers": ["mark@example.com"],
+    "subject": "Test",
+    "message": "Testing",
+    "attachments": []
+  },
+  {
+    "sender": "bobiculus@example.com",
+    "receivers": ["gunter@o2.com"],
+    "subject": "Greetings",
+    "message": "Hi, there. Are you looking for 100% free way of getting 50% off for amazing offers.",
+    "attachments": []
+  },
+  {
+    "sender": "zoe@example.com",
+    "receivers": ["emilie@example.com"],
+    "subject": "Dont do it",
+    "message": "Please",
     "attachments": []
   }
 ]

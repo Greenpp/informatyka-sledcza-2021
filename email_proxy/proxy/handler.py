@@ -39,7 +39,6 @@ class AnalyzingProxyHandler(Handler):
         """Handles email data received by the smtp  server. Depending on filtering
         results, sends an email either to quarantine or reciever client"""
         
-        logger.info(f'Debug: {self.report_generator}')
         logger.info(f'Data received in proxy')
         email = Email.from_envelope(envelope)
         logger.info(f'{email=}')
