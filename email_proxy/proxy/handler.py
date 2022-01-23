@@ -22,7 +22,11 @@ logger = logging.getLogger(__name__)
 
 
 class AnalyzingProxyHandler(Handler):
+    """Handler for proxy server"""
+    
     def __init__(self) -> None:
+        """Sets filter list and starts report generation"""
+        
         self._filters: list[Filter] = [
             KeywordsFilter(),
             RBLFilter(),
@@ -32,6 +36,9 @@ class AnalyzingProxyHandler(Handler):
         self.report_generator = ReportGenerator()
 
     async def handle_DATA(self, server, session, envelope) -> str:
+        """Handles email data received by the smtp  server. Depending on filtering
+        results, sends an email either to quarantine or reciever client"""
+        
         logger.info(f'Debug: {self.report_generator}')
         logger.info(f'Data received in proxy')
         email = Email.from_envelope(envelope)
