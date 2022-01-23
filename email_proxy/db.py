@@ -9,6 +9,8 @@ Base = declarative_base()
 
 
 class Email(Base):
+    """Defines structure of a table with emails"""
+    
     __tablename__ = 'emails'
 
     id = Column(Integer(), primary_key=True)
@@ -22,6 +24,8 @@ class Email(Base):
 
 
 class Attachment(Base):
+    """Defines structure of a table with attachments"""
+  
     __tablename__ = 'attachments'
 
     id = Column(Integer(), primary_key=True)
